@@ -34,7 +34,7 @@ public class SASolution implements Solution {
             if (temperature == 0 || currentState.getFitness() == 0) {
                 if(currentState.getFitness() == 0){
                     System.out.println("solucion encontrada despues de " + runs + " iteraciones \n");
-                    System.out.println(currentState.toString());
+                    currentState.printSolution();
                     break;
                 }else{
                     System.out.println("solucion no encontrada");

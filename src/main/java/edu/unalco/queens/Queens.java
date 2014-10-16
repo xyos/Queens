@@ -9,7 +9,7 @@ import edu.unalco.queens.solutions.SASolution;
 public class Queens {
     public static void main(String[] args) {
         Board saSolution = new SASolution(new Board(),100000).search();
-        Board gaSolution = new GASolution(20,0.2).search();
+        Board gaSolution = new GASolution(30,0.4).search();
         Board CSPSolution = new CSPSolution().search();
 
 

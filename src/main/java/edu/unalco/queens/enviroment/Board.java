@@ -4,7 +4,7 @@ import java.util.Random;
 
 
 public class Board implements Comparable<Board>{
-    final static int nQueens = 20;
+    final static int nQueens = 8;
     int l = (int)(Math.log10(nQueens)+1);
     public int getFitness() {
         return fitness;
@@ -13,7 +13,20 @@ public class Board implements Comparable<Board>{
     int fitness;
     private int[] queens;
     private Random rand = new Random();
-
+    
+    public void printSolution(){
+        
+        for (int i = 0; i < nQueens; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < nQueens; j++) {
+                if(queens[i] == j){
+                    sb.append("X");
+                }else{sb.append("O");}
+            }
+            System.out.println(sb.toString());
+        }
+    }
+    
     public Board() {
         this.queens = new int[nQueens];
         setRandomQueens();

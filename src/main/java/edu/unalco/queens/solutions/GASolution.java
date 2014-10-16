@@ -1,8 +1,8 @@
 package edu.unalco.queens.solutions;
 
 import edu.unalco.queens.enviroment.Board;
-
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
 
 
@@ -62,22 +62,24 @@ public class GASolution implements Solution{
         }
         return best;
     }
+
     public Board nextGeneration(){
         rank();
         int r;
         Board c;
-        int numSelected = 0;
-        double replaceRate = 0.2;
+        HashSet<Board> newHash = new HashSet<Board>();
+
+        double replaceRate = 0.6;
         double probC;
-        while (numSelected<(1-replaceRate)*populationNumber){
+        while (newHash.size()<(1-replaceRate)*populationNumber){
             r=(int) (Math.random()*populationNumber);
             c=population[r];
             probC= (populationNumber-r) / ( populationNumber*(populationNumber+1.0)/2.0 );
             if(random.nextDouble() <= probC){
-                newPopulation[++numSelected].setQueens(c.toString());
+                newHash.add(c);
             }
         }
-        for (int i = (int) ((1-replaceRate)*populationNumber); i < population.length; i++) {
+        while (newHash.size() < populationNumber) {
             Board x = select();
             Board y = select();
             Board child = x.reproduce(x,y);
@@ -85,8 +87,9 @@ public class GASolution implements Solution{
             if (random.nextDouble() <= this.mutationRate) {
                 child = child.mutate();
             }
-            newPopulation[i] = child;
+            newHash.add(child);
         }
+        newHash.toArray(newPopulation);
         population = newPopulation;
         return bestBoard();
     }
@@ -103,7 +106,7 @@ public class GASolution implements Solution{
             cnt++;
         } while (bestIndividual.getFitness() != 0);
         System.out.println("solucion encontrada despues de " + cnt + " generaciones \n");
-        System.out.println(bestIndividual.toString());
+        bestIndividual.printSolution();
         return bestIndividual;
     }
 }

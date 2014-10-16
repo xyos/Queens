@@ -16,7 +16,7 @@ public class CSPSolution implements Solution{
     Board placeQueenOnBoard(int qi) {
         if (qi == n && b.getFitness() == 0) {// a valid configuration found.
             System.out.println("solucion encontrada despues de " + backtracks + " backtracks \n");
-            System.out.println(b.toString());
+            b.printSolution();
             System.exit(0);
             return b;
         } else {
